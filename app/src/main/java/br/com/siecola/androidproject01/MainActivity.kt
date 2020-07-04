@@ -26,6 +26,63 @@ class MainActivity : AppCompatActivity() {
             }else{
                 Toast.makeText(this, "Please, enter the name.", Toast.LENGTH_SHORT).show()
             }
+            Log.d("MainActivity", "onCreate")
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d("MainActivity", "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d("MainActivity", "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("MainActivity", "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d("MainActivity", "onStop")
+    }
+
+    override fun onRestart() {
+        super.onRestart()
+        Log.d("MainActivity", "onRestart")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d("MainActivity", "onDestroy")
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        Log.d("MainActivity", "onSaveInstanceState")
+
+        val product = Product(
+            name = binding.edtName.text.toString(),
+            description = binding.edtDescription.text.toString(),
+            code = binding.edtCode.text.toString(),
+            price = binding.edtPrice.text.toString().toDouble())
+
+        outState.putSerializable("product", product)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        Log.d("MainActivity", "onRestoreInstanceState")
+
+        if(savedInstanceState.containsKey("product")){
+            val product = savedInstanceState.getSerializable("product") as Product
+            binding.txtName.text = product.name
+            binding.txtDescription.text = product.description
+            binding.txtCode.text = product.code
+            binding.txtPrice.text = product.price.toString()
         }
     }
 }
